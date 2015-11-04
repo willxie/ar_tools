@@ -48,8 +48,8 @@
 
 #if ROS_VERSION_MINIMUM(1, 9, 0)
   // new cv_bridge API in Groovy
-  #include <cv_bridge/cv_bridge.h> 
-  #include <sensor_msgs/image_encodings.h> 
+  #include <cv_bridge/cv_bridge.h>
+  #include <sensor_msgs/image_encodings.h>
 #else
   // Fuerte support for cv_bridge will be deprecated
   #if defined(__GNUC__)
@@ -62,8 +62,8 @@
 #include <ar_pose/ARMarker.h>
 #include <ar_pose/object.h>
 
-const std::string cameraImageTopic_ = "/camera/image_raw";
-const std::string cameraInfoTopic_  = "/camera/camera_info";
+const std::string cameraImageTopic_ = "/usb_camera/image_raw";
+const std::string cameraInfoTopic_  = "/usb_camera/camera_info";
 
 const double AR_TO_ROS = 0.001;
 

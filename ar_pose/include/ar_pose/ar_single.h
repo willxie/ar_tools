@@ -60,8 +60,8 @@
 
 #include <ar_pose/ARMarker.h>
 
-const std::string cameraImageTopic_ = "/camera/image_raw";
-const std::string cameraInfoTopic_  = "/camera/camera_info";
+const std::string cameraImageTopic_ = "/usb_camera/image_raw";
+const std::string cameraInfoTopic_  = "/usb_camera/camera_info";
 
 const double AR_TO_ROS = 0.001;
 
@@ -112,7 +112,7 @@ namespace ar_pose
     // **** for visualisation in rviz
     ros::Publisher rvizMarkerPub_;
     visualization_msgs::Marker rvizMarker_;
-    
+
     int contF;
     bool getCamInfo_;
     CvSize sz_;
