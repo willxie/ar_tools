@@ -57,7 +57,7 @@ namespace ar_pose
     if (!n_param.getParam ("threshold", threshold_))
       threshold_ = 100;
     ROS_INFO ("\tThreshold: %d", threshold_);
-	
+
 	//modifications to allow path list from outside the package
 	n_param.param ("marker_pattern_list", local_path, default_path);
 	if (local_path.compare(0,5,"data/") == 0){
@@ -69,14 +69,14 @@ namespace ar_pose
 	  sprintf (pattern_filename_, "%s", local_path.c_str ());
 	}
 	ROS_INFO ("Marker Pattern Filename: %s", pattern_filename_);
-	
+
     // **** subscribe
 
     ROS_INFO ("Subscribing to info topic");
     sub_ = n_.subscribe (cameraInfoTopic_, 1, &ARMultiPublisher::camInfoCallback, this);
     getCamInfo_ = false;
 
-    // **** advertse 
+    // **** advertse
 
     arMarkerPub_ = n_.advertise < ar_pose::ARMarkers > ("ar_pose_marker", 0);
     if(publishVisualMarkers_)
@@ -122,7 +122,7 @@ namespace ar_pose
         cam_param_.dist_factor[2] = 0;                  // We don't know the right value, so ignore it
 
       cam_param_.dist_factor[3] = 1.0;                  // scale factor, should probably be >1, but who cares...
-      
+
       arInit ();
 
       ROS_INFO ("Subscribing to image topic");
@@ -145,7 +145,7 @@ namespace ar_pose
     sz_ = cvSize (cam_param_.xsize, cam_param_.ysize);
 #if ROS_VERSION_MINIMUM(1, 9, 0)
 // FIXME: Why is this not in the object
-    cv_bridge::CvImagePtr capture_; 
+    cv_bridge::CvImagePtr capture_;
 #else
 // DEPRECATED: Fuerte support ends when Hydro is released
     capture_ = cvCreateImage (sz_, IPL_DEPTH_8U, 4);
@@ -161,7 +161,7 @@ namespace ar_pose
 
     /* Get the image from ROSTOPIC
      * NOTE: the dataPtr format is BGR because the ARToolKit library was
-     * build with V4L, dataPtr format change according to the 
+     * build with V4L, dataPtr format change according to the
      * ARToolKit configure option (see config.h).*/
 #if ROS_VERSION_MINIMUM(1, 9, 0)
     try
@@ -170,7 +170,7 @@ namespace ar_pose
     }
     catch (cv_bridge::Exception& e)
     {
-      ROS_ERROR("cv_bridge exception: %s", e.what()); 
+      ROS_ERROR("cv_bridge exception: %s", e.what());
     }
     dataPtr = (ARUint8 *) ((IplImage) capture_->image).imageData;
 #else
@@ -180,7 +180,7 @@ namespace ar_pose
     }
     catch (sensor_msgs::CvBridgeException & e)
     {
-      ROS_ERROR("cv_bridge exception: %s", e.what()); 
+      ROS_ERROR("cv_bridge exception: %s", e.what());
     }
     dataPtr = (ARUint8 *) capture_->imageData;
 #endif
@@ -293,7 +293,7 @@ namespace ar_pose
 #if ROS_VERSION_MINIMUM(1, 9, 0)
         tf::Vector3 markerOrigin (0, 0, 0.25 * object[i].marker_width * AR_TO_ROS);
         tf::Transform m (tf::Quaternion::getIdentity (), markerOrigin);
-        tf::Transform markerPose = t * m; // marker pose in the camera frame 
+        tf::Transform markerPose = t * m; // marker pose in the camera frame
 #else
 // DEPRECATED: Fuerte support ends when Hydro is released
         btVector3 markerOrigin (0, 0, 0.25 * object[i].marker_width * AR_TO_ROS);
